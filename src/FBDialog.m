@@ -29,7 +29,7 @@ static CGFloat kBorderBlack[4] = {0.3, 0.3, 0.3, 1};
 static CGFloat kTransitionDuration = 0.3;
 
 static CGFloat kPadding = 0;
-static CGFloat kBorderWidth = 0;
+static CGFloat kBorderWidth = 10;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -342,7 +342,7 @@ params   = _params;
         _webView.delegate = self;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:_webView];
-
+        
         UIImage* closeImage = [UIImage imageNamed:@"FBDialog.bundle/images/close.png"];
         
         UIColor* color = [UIColor colorWithRed:167.0/255 green:184.0/255 blue:216.0/255 alpha:1];
@@ -417,7 +417,6 @@ params   = _params;
     [_modalBackgroundView addSubview:self];	
     [window addSubview:_modalBackgroundView];	
     
-    /*
     self.transform = CGAffineTransformScale([self transformForOrientation], 0.001, 0.001);	
     [UIView beginAnimations:nil context:nil];	
     [UIView setAnimationDuration:kTransitionDuration/1.5];	
@@ -425,7 +424,6 @@ params   = _params;
     [UIView setAnimationDidStopSelector:@selector(bounce1AnimationStopped)];	
     self.transform = CGAffineTransformScale([self transformForOrientation], 1.1, 1.1);	
     [UIView commitAnimations];	
-     */
     
     [self dialogWillAppear];	
     [self addObservers];	
@@ -623,23 +621,20 @@ params   = _params;
     [self load];
     [self sizeToFitOrientation:NO];
     
-    //CGFloat innerWidth = self.frame.size.width - (kBorderWidth+1)*2;
+    CGFloat innerWidth = self.frame.size.width - (kBorderWidth+1)*2;
     [_closeButton sizeToFit];
     
     _closeButton.frame = CGRectMake(
                                     2,
-                                    3,
+                                    2,
                                     29,
                                     29);
-
-    /*
+    
     _webView.frame = CGRectMake(
                                 kBorderWidth+1,
                                 kBorderWidth+1,
                                 innerWidth,
                                 self.frame.size.height - (1 + kBorderWidth*2));
-     */
-    _webView.frame = self.bounds;
     
     if (!_isViewInvisible) {	
         [self showSpinner];	
